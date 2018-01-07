@@ -33,6 +33,7 @@ class pgn_list(object):
     def pgn_gen(self):
         pgns = []
         pgn_start = False
+
         pgn_txt = ""
         for line in self.pgns_file:
             if re.search("^\\[", line) and not pgn_start:
