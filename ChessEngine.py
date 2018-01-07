@@ -1,5 +1,5 @@
 ###############################################################################
-# ChessEngine v 0.0.0.0
+# ChessEngine v 0.0.0.1
 # Created by Alexander Ross
 # alexander.eric.ross@gmail.com
 ###############################################################################
@@ -24,21 +24,36 @@ class ChessEngine(object):
                                          'BK', 'BB2', 'BN2', 'BR2']])
 
 
-class pgns2list(object):
-    def __init__(self, file_name):
-        self.pgns_file = open(file_name)
+class pgn_list(object):
+    '''Creates a list of pgn objects from a file-name'''
 
-    def gen_files(self):
-        pgn_text_list = []
+    def __init__(self, pgn_filename):
+        self.pgn_file = open(pgn_filename)
+
+    def pgn_gen(self):
+        pgns = []
+        pgn_start = False
+        pgn_txt = ""
         for line in self.pgns_file:
-            if :
-                
+            if re.search("^\\[", line) and not pgn_start:
+                pgn_start = True
+                if pgn_txt != "":
+                    pgns.append(pgn(pgn_txt))
+                pgn_txt = line
+            else:
+                pgn_start = False
+                pgn_txt += line
+        self.pgns = pgns
+        return pgns
 
 
-class pgn2match(object):
-    def __init__(self, pgn_txt):
-        self.pgn_txt = pgn_txt
-        for line in pgn_txt:
+class pgn(object):
+    '''An object which contain all the information of a pgn_file but encoded,
+    tabulate and accessible on a move by move basis'''
+
+    def __init__(self, pgn_raw_text):
+        self.pgn_txt = pgn_raw_text
+        for line in self.pgn_txt:
             moves = []
             moves.append(re.split('\d*[\.,\.\.\.]', line))
 
