@@ -10,8 +10,8 @@ import re
 
 class ChessEngine(object):
     def __init__(self, pgn_match):
-        self.initial_state = np.matrix([['WR1', 'WN1', 'WB1', 'WQ',
-                                         'WK', 'WB2', 'WN2', 'WR2'],
+        self.initial_state = np.matrix([['WR1', 'WN1', 'WB1', 'WQ1',
+                                         'WKg', 'WB2', 'WN2', 'WR2'],
                                         ['WP1', 'WP2', 'WP3', 'WP4',
                                          'WP5', 'WP6', 'WP7', 'WP8'],
                                         [0, 0, 0, 0, 0, 0, 0, 0],
@@ -20,8 +20,8 @@ class ChessEngine(object):
                                         [0, 0, 0, 0, 0, 0, 0, 0],
                                         ['BP1', 'BP2', 'BP3', 'BP4',
                                          'BP5', 'BP6', 'BP7', 'BP8'],
-                                        ['BR1', 'BN1', 'BB1', 'BQ',
-                                         'BK', 'BB2', 'BN2', 'BR2']])
+                                        ['BR1', 'BN1', 'BB1', 'BQ1',
+                                         'BKg', 'BB2', 'BN2', 'BR2']])
 
 
 class pgn_list(object):
