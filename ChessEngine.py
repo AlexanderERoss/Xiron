@@ -28,21 +28,22 @@ class pgn_list(object):
     '''Creates a list of pgn objects from a file-name'''
 
     def __init__(self, pgn_filename):
-        self.pgn_file = open(pgn_filename)
+        self.pgns_file = open(pgn_filename)
 
     def pgn_gen(self):
         pgns = []
-        pgn_start = False
+        pgn_start = True
 
         pgn_txt = ""
         for line in self.pgns_file:
-            if re.search("^\\[", line) and not pgn_start:
-                pgn_start = True
+            if re.search("^\\[", line) and pgn_start:
+                pgn_start = False
                 if pgn_txt != "":
                     pgns.append(pgn(pgn_txt))
                 pgn_txt = line
             else:
-                pgn_start = False
+                if not re.search("^\\[", line):
+                    pgn_start = True
                 pgn_txt += line
         self.pgns = pgns
         return pgns
@@ -54,12 +55,14 @@ class pgn(object):
 
     def __init__(self, pgn_raw_text):
         self.pgn_txt = pgn_raw_text
-        for line in self.pgn_txt:
-            moves = []
-            moves.append(re.split('\d*[\.,\.\.\.]', line))
+        self.moves = moves
 
     def gen_dets(self):
-        pass
+        dets_txt = re.findall('\\[.+\\]', pgn_raw_text)
+        details = {}
+        for det in det_txt:
+            details[re.findall('(?<=^\[)\S+',
+                               det)[0]] = re.findall('(?<=\").+(?=\")', det)[0]
 
     def gen_moves(self):
         pass
